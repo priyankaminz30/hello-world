@@ -16,14 +16,11 @@ pipeline {
             }
         }
     }
-    stage('Copy War File to Docker Folder'){ 
-        steps {
-        sh 'cp webapp/target/*.war ansadmin@172.31.12.1:/opt/docker'
-        }
-    }
     stage('Deploy to Docker'){ 
         steps {
-        sh 'cd /opt/docker;ansible-playbook -i  hosts create-simple-devops-image.yml --limit localhost;ansible-playbook -i hosts create-simple-devops-project.yml --limit 172.31.0.125;'
+        sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd /opt/docker;
+ansible-playbook -i  hosts create-simple-devops-image.yml --limit localhost;
+ansible-playbook -i hosts create-simple-devops-project.yml --limit 172.31.0.125;''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '//opt//docker', remoteDirectorySDF: false, removePrefix: 'webapp/target', sourceFiles: 'webapp/target/*.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
         }
     }
    }
