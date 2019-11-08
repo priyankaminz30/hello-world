@@ -11,7 +11,10 @@ pipeline {
     }
     stage('Compile Package'){
         steps {
-        sh "${MAVEN_HOME}/bin/mvn package"
+            script{
+           def mvnHome = tool name: 'Maven', type: 'maven'
+        sh "${mvnHome}/bin/mvn package"
+            }
         }
     }
     stage('Copy War File to Docker Folder'){ 
