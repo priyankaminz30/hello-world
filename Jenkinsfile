@@ -10,9 +10,6 @@ pipeline {
         }
     }
     stage('Compile Package'){
-        agent {
-            label 'slave1'
-        }
         steps {
             script{
            sh '/opt/maven/bin/mvn package'
