@@ -13,7 +13,7 @@ pipeline {
         steps {
             script{
            sh '/opt/maven/bin/mvn package'
-           tag = VersionNumber projectStartDate: '2019-10-10', versionNumberString: 'BUILD_DATE_FORMATTED', versionPrefix: 'myapplication', worstResultForIncrement: 'SUCCESS'
+           tag = VersionNumber (projectStartDate: '2019-10-10', versionNumberString: 'BUILD_DATE_FORMATTED', versionPrefix: 'myapplication', worstResultForIncrement: 'SUCCESS')
             }
         }
     }
