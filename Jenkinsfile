@@ -7,13 +7,16 @@ pipeline {
     stage('SCM Git Checkout'){
         steps {
         git 'https://github.com/sohitsrivastava/hello-world.git'
+            script{
+                tag  = VersionNumber (MyApp.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILD_DATE_FORMATTED, "MM"}.${BUILD_DATE_FORMATTED, "dd"}.${BUILD_ID})
+                currentBuild.displayName = ${tag}
+            }
         }
     }
     stage('Compile Package'){
         steps {
             script{
-           sh '/opt/maven/bin/mvn package'
-           tag = tag = VersionNumber (projectStartDate: '2019-10-10', versionNumberString: '${BUILD_DATE_FORMATTED, "yyyyMMdd"}', versionPrefix: 'myapplication')
+           sh '/opt/maven/bin/mvn package
             }
         }
     }
