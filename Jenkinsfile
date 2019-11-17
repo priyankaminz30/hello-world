@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    currentBuild.displayName = VersionNumber (projectStartDate: '2019-10-10', versionNumberString: 'MyApp.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILD_DATE_FORMATTED, "MM"}.${BUILD_DATE_FORMATTED, "dd"}.${BUILD_ID}', versionPrefix: 'myapplication')
     parameters {
         string(name: 'username', description: 'Enter the username for the target server')
     }
@@ -7,7 +8,6 @@ pipeline {
     stage('SCM Git Checkout'){
         steps {
         git 'https://github.com/sohitsrivastava/hello-world.git'
-        currentBuild.displayName = VersionNumber (projectStartDate: '2019-10-10', versionNumberString: 'MyApp.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILD_DATE_FORMATTED, "MM"}.${BUILD_DATE_FORMATTED, "dd"}.${BUILD_ID}', versionPrefix: 'myapplication')
         }
     }
     stage('Compile Package'){
