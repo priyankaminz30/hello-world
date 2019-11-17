@@ -8,7 +8,7 @@ pipeline {
         steps {
         git 'https://github.com/sohitsrivastava/hello-world.git'
             script{
-                tag  = VersionNumber (MyApp.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILD_DATE_FORMATTED, "MM"}.${BUILD_DATE_FORMATTED, "dd"}.${BUILD_ID})
+                tag  = VersionNumber (versionNumberString: 'MyApp.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILD_DATE_FORMATTED, "MM"}.${BUILD_DATE_FORMATTED, "dd"}.${BUILD_ID}')
                 currentBuild.displayName = ${tag}
             }
         }
