@@ -7,10 +7,7 @@ pipeline {
     stage('SCM Git Checkout'){
         steps {
         git 'https://github.com/sohitsrivastava/hello-world.git'
-            script{
-                tag  = VersionNumber (versionNumberString: 'MyApp.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILD_DATE_FORMATTED, "MM"}.${BUILD_DATE_FORMATTED, "dd"}.${BUILD_ID}')
-                currentBuild.displayName = ${tag}
-            }
+        currentBuild.displayName = VersionNumber (projectStartDate: '2019-10-10', versionNumberString: 'MyApp.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILD_DATE_FORMATTED, "MM"}.${BUILD_DATE_FORMATTED, "dd"}.${BUILD_ID}', versionPrefix: 'myapplication')
         }
     }
     stage('Compile Package'){
