@@ -19,7 +19,7 @@ pipeline {
     }
         stage('Archive Artefacts'){
             steps{
-                archiveArtifacts '/**/*.war'
+                archiveArtifacts '**/*.war'
             }
         }
     stage('Deploy to Docker'){ 
