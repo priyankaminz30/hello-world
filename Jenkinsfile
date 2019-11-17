@@ -17,7 +17,11 @@ pipeline {
             }
         }
     }
-    
+        stage('Archive Artefacts'){
+            steps{
+                archiveArtifacts '/**/*.war'
+            }
+        }
     stage('Deploy to Docker'){ 
         steps {
             echo "Deploying to target server with username: ${params.username}"
