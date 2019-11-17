@@ -16,7 +16,7 @@ pipeline {
     stage('Compile Package'){
         steps {
             script{
-           sh '/opt/maven/bin/mvn package
+           sh '/opt/maven/bin/mvn package'
             }
         }
     }
