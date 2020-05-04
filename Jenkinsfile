@@ -1,8 +1,13 @@
+import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
 pipeline {
     agent any
     
     parameters {
         string(name: 'username', description: 'Enter the username for the target server')
+        booleanParam(name: 'IIB', defaultValue: true, description: 'Extract for IIB') 
+        booleanParam(name: 'WAS', defaultValue: true, description: 'Extract for WAS') 
+        booleanParam(name: 'J2SE', defaultValue: true, description: 'Extract for J2SE') 
+		booleanParam(name: 'ALL', defaultValue: true, description: 'Extract for ALL')
     }
     stages {
     stage('SCM Git Checkout'){
@@ -28,6 +33,42 @@ pipeline {
 		 }
 		 steps{
 			echo "username verified as sohit"
+		 }
+	}
+	stage('Extract IIB'){
+		when{
+		   environment  name: 'username' , value : 'Sohit'
+		   anyOf {
+                    environment name: 'ALL', value: 'true'
+                    environment name: 'IIB', value: 'true'
+                }
+		 }
+		 steps{
+			echo "Extracting logs for IIB"
+		 }
+	}
+	stage('Extract WAS'){
+		when{
+		   environment  name: 'username' , value : 'Sohit'
+		   anyOf {
+                    environment name: 'ALL', value: 'true'
+                    environment name: 'WAS', value: 'true'
+                }
+		 }
+		 steps{
+			echo "Extracting logs for WAS"
+		 }
+	}
+	stage('Extract J2SE'){
+		when{
+		   environment  name: 'username' , value : 'Sohit'
+		   anyOf {
+                    environment name: 'ALL', value: 'true'
+                    environment name: 'J2SE', value: 'true'
+                }
+		 }
+		 steps{
+			echo "Extracting logs for J2SE"
 		 }
 	}
     stage('Deploy to Docker'){ 
